@@ -18,6 +18,7 @@ class Cards
   def get_cards(player)
 
      @players.each do |player|
+
        if player.name == "Dealer"
 
           card1 = rand(2..11)
@@ -33,22 +34,24 @@ class Cards
           user = ""
           player.card_value = card1 + card2
 
-          until player.card_value > 15 || user == "s"
-            p "Do you want to hit or stay, hit h for hit, s for stay"
+          if player.card_value > 21
+            loose()
+            break
+          end
 
-            user = gets.chomp
+          until player.card_value > 15
 
             card3 = rand(2..11)
             suit3 =  ["diamond", "club", "spade", "heart"].sample
 
             player.card_value += card3
-            p player.card_value
-            break if player.card_value >= 16
-            p "#{player.name}'s card is #{card3} #{suit3}, and your total is #{player.card_value}"
-            p "Do you want to hit or stay, hit h for hit, s for stay"
-            user = gets.chomp
+
+            if player.card_value > 21
+              loose()
+              break
+            end
           end
-          p "You are busted" if player.card_value > 21
+
           p "#{player.name} is #{player.card_value}"
           @@compare << player.card_value
         else
@@ -62,6 +65,11 @@ class Cards
           p "#{player.name}'s first card is #{card1} #{suit1}"
           p "#{player.name}'s second car is #{card2} #{suit2}"
 
+          if player.card_value > 21
+            loose()
+            break
+          end
+
           p "Do you want to hit or stay, hit h for hit, s for stay"
 
           user = gets.chomp
@@ -71,12 +79,17 @@ class Cards
             suit3 =  ["diamond", "club", "spade", "heart"].sample
 
             player.card_value += card3
-            break if player.card_value > 21
+
+            if player.card_value > 21
+              loose()
+              break
+            end
+
             p "#{player.name}'s card is #{card3} #{suit3}, and your total is #{player.card_value}"
             p "Do you want to hit or stay, hit h for hit, s for stay"
             user = gets.chomp
           end
-          p "You are busted" if player.card_value > 21
+
           p "Your total is #{player.card_value}"
 
         end
@@ -88,11 +101,24 @@ class Cards
     p "*****************************"
     @players.each do |player|
       next if player.name == "Dealer"
-      p "You win. Dealer loose" if player.card_value > @@compare[0]
-      p "You loose. Dealer win" if player.card_value < @@compare[0]
-      p "You draw" if player.card_value == @@compare[0]
+
+      break if @@compare[0] > 21
+      break if player.card_value > 21
+
+      if (@@compare[0] < player.card_value)
+        p "You win. Dealer loose"
+
+      elsif (@@compare[0] > player.card_value)
+        p "You loose. Dealer win"
+      elsif player.card_value == @@compare[0]
+        p "You draw"
+      end
     end
 
+  end
+
+  def loose
+    p "You busted. You loose"
   end
 
 end
