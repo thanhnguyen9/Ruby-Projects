@@ -30,11 +30,14 @@ class Cards
           p "#{player.name}'s first card is #{card1} #{suit1}"
           p "#{player.name}'s second car is #{card2} #{suit2}"
 
-          p "Do you want to hit or stay, hit h for hit, s for stay"
+          user = ""
+          player.card_value = card1 + card2
 
-          user = gets.chomp
+          until player.card_value > 15 || user == "s"
+            p "Do you want to hit or stay, hit h for hit, s for stay"
 
-          until user == "s"
+            user = gets.chomp
+
             card3 = rand(2..11)
             suit3 =  ["diamond", "club", "spade", "heart"].sample
 
@@ -46,7 +49,7 @@ class Cards
             user = gets.chomp
           end
           p "You are busted" if player.card_value > 21
-          p "Your #{player.name} is #{player.card_value}"
+          p "#{player.name} is #{player.card_value}"
           @@compare << player.card_value
         else
           card1 = rand(2..11)
