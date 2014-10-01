@@ -85,8 +85,9 @@ class Cards
     p "*****************************"
     @players.each do |player|
       next if player.name == "Dealer"
-      p "You win" if player.card_value > @@compare[0]
-      p "You lost" if player.card_value < @@compare[0]
+      p "You win. Dealer loose" if player.card_value > @@compare[0]
+      p "You loose. Dealer win" if player.card_value < @@compare[0]
+      p "You draw" if player.card_value == @@compare[0]
     end
 
   end
