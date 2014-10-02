@@ -209,6 +209,38 @@ class Cards
       value: "Jack",
       suit: "spade"
     }
+    cards<< {
+      value: "Queen",
+      suit: "heart"
+    }
+    cards<< {
+      value: "Queen",
+      suit: "diamond"
+    }
+    cards<< {
+      value: "Queen",
+      suit: "club"
+    }
+    cards<< {
+      value: "Queen",
+      suit: "spade"
+    }
+    cards<< {
+      value: "King",
+      suit: "club"
+    }
+    cards<< {
+      value: "King",
+      suit: "diamond"
+    }
+    cards<< {
+      value: "King",
+      suit: "heart"
+    }
+    cards<< {
+      value: "King",
+      suit: "spade"
+    }
 
      @players.each do |player|
 
@@ -238,8 +270,8 @@ class Cards
           p "#{player.name}'s first card is #{card1[:value]} #{card1[:suit]}"
           p "#{player.name}'s second car is #{card2[:value]} #{card2[:suit]}"
 
-          card1[:value] = 10 if card1[:value] == "Jack"
-          card2[:value] = 10 if card2[:value] == "Jack"
+          card1[:value] = 10 if (card1[:value] == "Jack") || (card1[:value] == "Queen") || (card1[:value] == "King")
+          card2[:value] = 10 if (card2[:value] == "Jack") || (card2[:value] == "Queen") || (card2[:value] == "King")
 
           player.card_value = card1[:value] + card2[:value]
 
@@ -265,7 +297,7 @@ class Cards
 
              p "#{player.name}'s card is #{card3[:value]} #{card3[:suit]}"
 
-             card3[:value] = 10 if card3[:value] == "Jack"
+             card3[:value] = 10 if (card3[:value] == "Jack") || (card1[:value] == "Queen") || (card1[:value] == "King")
 
             player.card_value = player.card_value + card3[:value]
 
@@ -301,8 +333,8 @@ class Cards
           p "#{player.name}'s first card is #{card4[:value]} #{card4[:suit]}"
           p "#{player.name}'s second car is #{card5[:value]} #{card5[:suit]}"
 
-          card4[:value] = 10 if card4[:value] == "Jack"
-          card5[:value] = 10 if card5[:value] == "Jack"
+          card4[:value] = 10 if (card4[:value] == "Jack") || (card4[:value] == "Queen") || (card4[:value] == "King")
+          card5[:value] = 10 if (card5[:value] == "Jack") || (card5[:value] == "Queen") || (card5[:value] == "King")
 
           player.card_value = card4[:value] + card5[:value]
 
@@ -326,7 +358,7 @@ class Cards
 
             p "#{player.name}'s card is #{card6[:value]} #{card6[:suit]}"
 
-            card6[:value] = 10 if card6[:value] == "Jack"
+            card6[:value] = 10 if (card6[:value] == "Jack") || (card6[:value] == "Queen") || (card6[:value] == "King")
 
             count += 1
             player.card_value += card6[:value]
