@@ -248,57 +248,57 @@ class Cards
           p "#{player.name} is #{player.card_value}"
           @@compare << player.card_value
 
-        # else
-        #
-        #
-        #   card4 = []
-        #   card5 = []
-        #
-        #     card4 = cards.sample
-        #     card5 = cards.sample
-        #     @@cards << card4
-        #
-        #     while result.include? card5
-        #       card5 = card.sample
-        #     end
-        #     @@cards << card5
-        #
-        #
-        #   player.card_value = card4[:value] + card5[:value]
-        #   p "**********************************************"
-        #   p "#{player.name}'s first card is #{card4[:value]} #{card4[:suit]}"
-        #   p "#{player.name}'s second car is #{card5[:value]} #{card5[:suit]}"
-        #
-        #   if player.card_value > 21
-        #     loose()
-        #     break
-        #   end
-        #
-        #   p "Do you want to hit or stay, hit h for hit, s for stay"
-        #
-        #   user = gets.chomp
-        #
-        #   until user == "s"
-        #     card6 = cards.sample
-        #
-        #     while result.include? card6
-        #       card6 = cards.sample
-        #     end
-        #     @@cards << card6
-        #
-        #     player.card_value += card6[:value]
-        #
-        #     if player.card_value > 21
-        #       loose()
-        #       break
-        #     end
-        #
-        #     p "#{player.name}'s card is #{card6[:value]} #{card6[:suit]}, and your total is #{player.card_value}"
-        #     p "Do you want to hit or stay, hit h for hit, s for stay"
-        #     user = gets.chomp
-        #   end
-        #
-        #   p "Your total is #{player.card_value}"
+        else
+
+
+          card4 = []
+          card5 = []
+
+            card4 = cards.sample
+            card5 = cards.sample
+            @@cards << card4
+
+            while result.include? card5
+              card5 = card.sample
+            end
+            @@cards << card5
+
+
+          player.card_value = card4[:value] + card5[:value]
+          p "**********************************************"
+          p "#{player.name}'s first card is #{card4[:value]} #{card4[:suit]}"
+          p "#{player.name}'s second car is #{card5[:value]} #{card5[:suit]}"
+
+          if player.card_value > 21
+            loose()
+            break
+          end
+
+          p "Do you want to hit or stay, hit h for hit, s for stay"
+
+          user = gets.chomp
+
+          until user == "s"
+            card6 = cards.sample
+
+            while result.include? card6
+              card6 = cards.sample
+            end
+            @@cards << card6
+
+            player.card_value += card6[:value]
+
+            if player.card_value > 21
+              loose()
+              break
+            end
+
+            p "#{player.name}'s card is #{card6[:value]} #{card6[:suit]}, and your total is #{player.card_value}"
+            p "Do you want to hit or stay, hit h for hit, s for stay"
+            user = gets.chomp
+          end
+
+          p "Your total is #{player.card_value}"
 
         end
      end
@@ -359,7 +359,7 @@ card = Cards.new
 card.add_player(thanh)
 card.add_player(dealer)
 
-#card.get_cards(thanh)
+card.get_cards(thanh)
 card.get_cards(dealer)
 
 #card.who_win?
