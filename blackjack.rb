@@ -193,6 +193,22 @@ class Cards
       value: 10,
       suit: "spade"
     }
+    cards<< {
+      value: "Jack",
+      suit: "diamond"
+    }
+    cards<< {
+      value: "Jack",
+      suit: "club"
+    }
+    cards<< {
+      value: "Jack",
+      suit: "heart"
+    }
+    cards<< {
+      value: "Jack",
+      suit: "spade"
+    }
 
      @players.each do |player|
 
@@ -203,18 +219,29 @@ class Cards
 
             card1 = cards.sample
             card2 = cards.sample
+
+
+
             @@cards << card1
 
 
             while @@cards.include? card2
               card2 = cards.sample
             end
+
             @@cards << card2
 
-            player.card_value = card1[:value] + card2[:value]
+            auto_win() if (card1[:value] == 11 && card2[:value] == 10) || (card1[:value] == 10 && card2[:value] == 11)
+
+
           p "**********************************************"
           p "#{player.name}'s first card is #{card1[:value]} #{card1[:suit]}"
           p "#{player.name}'s second car is #{card2[:value]} #{card2[:suit]}"
+
+          card1[:value] = 10 if card1[:value] == "Jack"
+          card2[:value] = 10 if card2[:value] == "Jack"
+
+          player.card_value = card1[:value] + card2[:value]
 
           user = ""
           p player.card_value
@@ -236,6 +263,9 @@ class Cards
 
              @@cards << card3
 
+             p "#{player.name}'s card is #{card3[:value]} #{card3[:suit]}"
+
+             card3[:value] = 10 if card3[:value] == "Jack"
 
             player.card_value = player.card_value + card3[:value]
 
@@ -256,6 +286,8 @@ class Cards
 
             card4 = cards.sample
             card5 = cards.sample
+
+            count = 2
             @@cards << card4
 
             while @@cards.include? card5
@@ -264,10 +296,15 @@ class Cards
             @@cards << card5
 
 
-          player.card_value = card4[:value] + card5[:value]
+
           p "**********************************************"
           p "#{player.name}'s first card is #{card4[:value]} #{card4[:suit]}"
           p "#{player.name}'s second car is #{card5[:value]} #{card5[:suit]}"
+
+          card4[:value] = 10 if card4[:value] == "Jack"
+          card5[:value] = 10 if card5[:value] == "Jack"
+
+          player.card_value = card4[:value] + card5[:value]
 
           if player.card_value > 21
             loose()
@@ -284,8 +321,14 @@ class Cards
             while @@cards.include? card6
               card6 = cards.sample
             end
+
             @@cards << card6
 
+            p "#{player.name}'s card is #{card6[:value]} #{card6[:suit]}"
+
+            card6[:value] = 10 if card6[:value] == "Jack"
+
+            count += 1
             player.card_value += card6[:value]
 
             if player.card_value > 21
@@ -293,11 +336,11 @@ class Cards
               break
             end
 
-            p "#{player.name}'s card is #{card6[:value]} #{card6[:suit]}, and your total is #{player.card_value}"
+            p "#{player.name} total is #{player.card_value}"
             p "Do you want to hit or stay, hit h for hit, s for stay"
             user = gets.chomp
           end
-
+          funny_business() if count == 5
           p "Your total is #{player.card_value}"
 
         end
@@ -327,6 +370,14 @@ class Cards
 
   def loose
     p "You busted. You loose"
+  end
+
+  def autowin
+    p "You win"
+  end
+
+  def funny_business
+    p "You win a funny business"
   end
 
 end
