@@ -22,22 +22,22 @@ class Cards
     cards = []
 
     cards << {
-      value: 1,
+      value: 11,
       suit: "club"
     }
 
     cards << {
-      value: 1,
+      value: 11,
       suit: "heart"
     }
 
     cards << {
-      value: 1,
+      value: 11,
       suit: "diamond"
     }
 
     cards<< {
-      value: 1,
+      value: 11,
       suit: "spade"
     }
 
@@ -263,20 +263,29 @@ class Cards
 
             @@cards << card2
 
-            auto_win() if (card1[:value] == 11 && card2[:value] == 10) || (card1[:value] == 10 && card2[:value] == 11)
+
 
 
           p "**********************************************"
-          p "#{player.name}'s first card is #{card1[:value]} #{card1[:suit]}"
-          p "#{player.name}'s second car is #{card2[:value]} #{card2[:suit]}"
+          if card1[:value] == 11
+            p "#{player.name}'s fist card is ace #{card1[:suit]}"
+          else
+            p "#{player.name}'s first card is #{card1[:value]} #{card1[:suit]}"
+          end
+          if card2[:value] == 11
+            p "#{player.name}'s second card is ace #{card2[:suit]}"
+          else
+            p "#{player.name}'s second car is #{card2[:value]} #{card2[:suit]}"
+          end
 
           card1[:value] = 10 if (card1[:value] == "Jack") || (card1[:value] == "Queen") || (card1[:value] == "King")
           card2[:value] = 10 if (card2[:value] == "Jack") || (card2[:value] == "Queen") || (card2[:value] == "King")
 
+          auto_win() if (card1[:value] == 11 && card2[:value] == 10) || (card1[:value] == 10 && card2[:value] == 11)
+
           player.card_value = card1[:value] + card2[:value]
 
           user = ""
-          p player.card_value
 
           if player.card_value > 21
             loose()
@@ -295,9 +304,13 @@ class Cards
 
              @@cards << card3
 
-             p "#{player.name}'s card is #{card3[:value]} #{card3[:suit]}"
+             if card3[:value] == 11
+               p "#{player.name}'s next card is ace #{card3[:suit]}"
+             else
+               p "#{player.name}'s next card is #{card3[:value]} #{card3[:suit]}"
+             end
 
-             card3[:value] = 10 if (card3[:value] == "Jack") || (card1[:value] == "Queen") || (card1[:value] == "King")
+             card3[:value] = 10 if (card3[:value] == "Jack") || (card3[:value] == "Queen") || (card3[:value] == "King")
 
             player.card_value = player.card_value + card3[:value]
 
@@ -330,13 +343,27 @@ class Cards
 
 
           p "**********************************************"
-          p "#{player.name}'s first card is #{card4[:value]} #{card4[:suit]}"
-          p "#{player.name}'s second car is #{card5[:value]} #{card5[:suit]}"
+
+          if card4[:value] == 11
+            p "#{player.name}'s first card is ace #{card4[:suit]}"
+          else
+            p "#{player.name}'s first card is #{card4[:value]} #{card4[:suit]}"
+          end
+
+          if card5[:value] == 11
+            p "#{player.name}'s second card is ace #{card5[:suit]}"
+          else
+            p "#{player.name}'s second card is #{card5[:value]} #{card5[:suit]}"
+          end
 
           card4[:value] = 10 if (card4[:value] == "Jack") || (card4[:value] == "Queen") || (card4[:value] == "King")
           card5[:value] = 10 if (card5[:value] == "Jack") || (card5[:value] == "Queen") || (card5[:value] == "King")
 
+          auto_win() if (card4[:value] == 11 && card5[:value] == 10) || (card4[:value] == 10 && card5[:value] == 11)
+
           player.card_value = card4[:value] + card5[:value]
+
+          p "#{player.name} total is #{player.card_value}"
 
           if player.card_value > 21
             loose()
@@ -356,12 +383,18 @@ class Cards
 
             @@cards << card6
 
-            p "#{player.name}'s card is #{card6[:value]} #{card6[:suit]}"
+            if card6[:value] == 11
+              p "#{player.name}'s next card is ace #{card6[:suit]}"
+            else
+              p "#{player.name}'s next card is #{card6[:value]} #{card6[:suit]}"
+            end
 
             card6[:value] = 10 if (card6[:value] == "Jack") || (card6[:value] == "Queen") || (card6[:value] == "King")
 
             count += 1
             player.card_value += card6[:value]
+
+            break if player.card_value == 21
 
             if player.card_value > 21
               loose()
@@ -372,7 +405,7 @@ class Cards
             p "Do you want to hit or stay, hit h for hit, s for stay"
             user = gets.chomp
           end
-          funny_business() if count == 5
+          funny_business() if (count == 5) && (player.card_value < 21)
           p "Your total is #{player.card_value}"
 
         end
@@ -404,8 +437,8 @@ class Cards
     p "You busted. You loose"
   end
 
-  def autowin
-    p "You win"
+  def auto_win
+    p "You got BLACKJACK"
   end
 
   def funny_business
