@@ -472,10 +472,10 @@ thanh = Player.new "Thanh"
 dealer = Dealer.new "Dealer"
 card = Cards.new
 
-card.add_player(thanh)
 card.add_player(dealer)
+card.add_player(thanh)
 
-#card.get_cards(thanh)
+#card.get_cards()
 card.get_cards(dealer)
 
 card.who_win?
