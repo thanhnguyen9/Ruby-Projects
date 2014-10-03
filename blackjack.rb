@@ -42,7 +42,7 @@ class Deck
 
 
   def self.deal_card
-    @@cards.shuffle.pop
+    @@cards.shuffle.shift
   end
 end
 
