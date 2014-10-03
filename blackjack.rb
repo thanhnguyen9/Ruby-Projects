@@ -1,481 +1,203 @@
+class Card
+
+  attr_accessor :suit, :value
+
+  def initialize(suit, value)
+    @value = value
+    @suit = suit
+  end
+
+  def to_s
+    p "Your card is #{@value}-#{@suit}"
+  end
+
+  def face_card
+    @value = 10 if ["Jack", "Queen", "King"].include? @value
+    @value = 11 if @value == "Ace"
+    return @value
+  end
+  def to_s
+    p "The card is #{@value}-#{@suit}"
+  end
+end
 
 
-class Cards
 
-  attr_accessor :players, :card_value
+class Deck
 
-  @@compare = []
   @@cards = []
 
-  def initialize
-    @players = []
-    @card_value = 0
-  end
-
-
-  def add_player(name)
-    @players << name
-  end
-
-  def get_cards(player)
-
-    cards = []
-
-    cards << {
-      value: 11,
-      suit: "club"
-    }
-
-    cards << {
-      value: 11,
-      suit: "heart"
-    }
-
-    cards << {
-      value: 11,
-      suit: "diamond"
-    }
-
-    cards<< {
-      value: 11,
-      suit: "spade"
-    }
-
-    cards<< {
-      value: 2,
-      suit: "diamond"
-    }
-
-    cards<< {
-      value: 2,
-      suit: "club"
-    }
-
-    cards<< {
-      value: 2,
-      suit: "heart"
-    }
-
-    cards<< {
-      value: 2,
-      suit: "spade"
-    }
-
-    cards<< {
-      value: 3,
-      suit: "club"
-    }
-
-    cards<< {
-      value: 3,
-      suit: "diamond"
-    }
-
-    cards<< {
-      value: 3,
-      suit: "heart"
-    }
-
-    cards<< {
-      value: 3,
-      suit: "spade"
-    }
-    cards<< {
-      value: 4,
-      suit: "club"
-    }
-    cards<< {
-      value: 4,
-      suit: "diamond"
-    }
-    cards<< {
-      value: 4,
-      suit: "heart"
-    }
-    cards<< {
-      value: 4,
-      suit: "spade"
-    }
-    cards<< {
-      value: 5,
-      suit: "heart"
-    }
-    cards<< {
-      value: 5,
-      suit: "club"
-    }
-    cards<< {
-      value: 5,
-      suit: "diamond"
-    }
-    cards<< {
-      value: 5,
-      suit: "spade"
-    }
-    cards<< {
-      value: 6,
-      suit: "heart"
-    }
-    cards<< {
-      value: 6,
-      suit: "diamond"
-    }
-    cards<< {
-      value: 6,
-      suit: "club"
-    }
-    cards<< {
-      value: 6,
-      suit: "spade"
-    }
-    cards<< {
-      value: 7,
-      suit: "heart"
-    }
-    cards<< {
-      value: 7,
-      suit: "diamond"
-    }
-    cards<< {
-      value: 7,
-      suit: "club"
-    }
-    cards<< {
-      value: 7,
-      suit: "spade"
-    }
-    cards<< {
-      value: 8,
-      suit: "heart"
-    }
-    cards<< {
-      value: 8,
-      suit: "diamond"
-    }
-    cards<< {
-      value: 8,
-      suit: "club"
-    }
-    cards<< {
-      value: 8,
-      suit: "spade"
-    }
-
-    cards<< {
-      value: 9,
-      suit: "heart"
-    }
-    cards<< {
-      value: 9,
-      suit: "diamond"
-    }
-    cards<< {
-      value: 9,
-      suit: "club"
-    }
-    cards<< {
-      value: 9,
-      suit: "spade"
-    }
-    cards<< {
-      value: 10,
-      suit: "heart"
-    }
-    cards<< {
-      value: 10,
-      suit: "diamond"
-    }
-    cards<< {
-      value: 10,
-      suit: "club"
-    }
-    cards<< {
-      value: 10,
-      suit: "spade"
-    }
-    cards<< {
-      value: "Jack",
-      suit: "diamond"
-    }
-    cards<< {
-      value: "Jack",
-      suit: "club"
-    }
-    cards<< {
-      value: "Jack",
-      suit: "heart"
-    }
-    cards<< {
-      value: "Jack",
-      suit: "spade"
-    }
-    cards<< {
-      value: "Queen",
-      suit: "heart"
-    }
-    cards<< {
-      value: "Queen",
-      suit: "diamond"
-    }
-    cards<< {
-      value: "Queen",
-      suit: "club"
-    }
-    cards<< {
-      value: "Queen",
-      suit: "spade"
-    }
-    cards<< {
-      value: "King",
-      suit: "club"
-    }
-    cards<< {
-      value: "King",
-      suit: "diamond"
-    }
-    cards<< {
-      value: "King",
-      suit: "heart"
-    }
-    cards<< {
-      value: "King",
-      suit: "spade"
-    }
-
-     @players.each do |player|
-
-       if player.name == "Dealer"
-
-          card1 = []
-          card2 = []
-
-            card1 = cards.sample
-            card2 = cards.sample
-
-
-
-            @@cards << card1
-
-
-            while @@cards.include? card2
-              card2 = cards.sample
-            end
-
-            @@cards << card2
-
-
-
-
-          p "**********************************************"
-          if card1[:value] == 11
-            p "#{player.name}'s fist card is ace #{card1[:suit]}"
-          else
-            p "#{player.name}'s first card is #{card1[:value]} #{card1[:suit]}"
-          end
-          if card2[:value] == 11
-            p "#{player.name}'s second card is ace #{card2[:suit]}"
-          else
-            p "#{player.name}'s second car is #{card2[:value]} #{card2[:suit]}"
-          end
-
-          card1[:value] = 10 if (card1[:value] == "Jack") || (card1[:value] == "Queen") || (card1[:value] == "King")
-          card2[:value] = 10 if (card2[:value] == "Jack") || (card2[:value] == "Queen") || (card2[:value] == "King")
-
-          auto_win() if (card1[:value] == 11 && card2[:value] == 10) || (card1[:value] == 10 && card2[:value] == 11)
-
-          player.card_value = card1[:value] + card2[:value]
-
-          user = ""
-
-          if player.card_value > 21
-            loose()
-            break
-          end
-
-           until player.card_value > 15
-
-             card3 = cards.sample
-
-
-
-              while @@cards.include? card3
-               card3 = cards.sample
-              end
-
-             @@cards << card3
-
-             if card3[:value] == 11
-               p "#{player.name}'s next card is ace #{card3[:suit]}"
-             else
-               p "#{player.name}'s next card is #{card3[:value]} #{card3[:suit]}"
-             end
-
-             card3[:value] = 10 if (card3[:value] == "Jack") || (card3[:value] == "Queen") || (card3[:value] == "King")
-
-            player.card_value = player.card_value + card3[:value]
-
-            if player.card_value > 21
-              loose()
-              break
-            end
-          end
-
-          p "#{player.name} is #{player.card_value}"
-          @@compare << player.card_value
-
-        else
-
-
-          card4 = []
-          card5 = []
-
-            card4 = cards.sample
-            card5 = cards.sample
-
-            count = 2
-            @@cards << card4
-
-            while @@cards.include? card5
-              card5 = card.sample
-            end
-            @@cards << card5
-
-
-
-          p "**********************************************"
-
-          if card4[:value] == 11
-            p "#{player.name}'s first card is ace #{card4[:suit]}"
-          else
-            p "#{player.name}'s first card is #{card4[:value]} #{card4[:suit]}"
-          end
-
-          if card5[:value] == 11
-            p "#{player.name}'s second card is ace #{card5[:suit]}"
-          else
-            p "#{player.name}'s second card is #{card5[:value]} #{card5[:suit]}"
-          end
-
-          card4[:value] = 10 if (card4[:value] == "Jack") || (card4[:value] == "Queen") || (card4[:value] == "King")
-          card5[:value] = 10 if (card5[:value] == "Jack") || (card5[:value] == "Queen") || (card5[:value] == "King")
-
-          auto_win() if (card4[:value] == 11 && card5[:value] == 10) || (card4[:value] == 10 && card5[:value] == 11)
-
-          player.card_value = card4[:value] + card5[:value]
-
-          p "#{player.name} total is #{player.card_value}"
-
-          if player.card_value > 21
-            loose()
-            break
-          end
-
-          p "Do you want to hit or stay, hit h for hit, s for stay"
-
-          user = gets.chomp
-
-          until user == "s"
-            card6 = cards.sample
-
-            while @@cards.include? card6
-              card6 = cards.sample
-            end
-
-            @@cards << card6
-
-            if card6[:value] == 11
-              p "#{player.name}'s next card is ace #{card6[:suit]}"
-            else
-              p "#{player.name}'s next card is #{card6[:value]} #{card6[:suit]}"
-            end
-
-            card6[:value] = 10 if (card6[:value] == "Jack") || (card6[:value] == "Queen") || (card6[:value] == "King")
-
-            count += 1
-            player.card_value += card6[:value]
-
-            break if player.card_value == 21
-
-            if player.card_value > 21
-              loose()
-              break
-            end
-
-            p "#{player.name} total is #{player.card_value}"
-            p "Do you want to hit or stay, hit h for hit, s for stay"
-            user = gets.chomp
-          end
-          funny_business() if (count == 5) && (player.card_value < 21)
-          p "Your total is #{player.card_value}"
-
-        end
-     end
-  end
-
-  def who_win?
-
-    p "*****************************"
-    @players.each do |player|
-      next if player.name == "Dealer"
-
-      break if @@compare[0] > 21
-      break if player.card_value > 21
-
-      if (@@compare[0] < player.card_value)
-        p "You win. Dealer loose"
-
-      elsif (@@compare[0] > player.card_value)
-        p "You loose. Dealer win"
-      elsif player.card_value == @@compare[0]
-        p "You draw"
+  def self.build_cards
+
+    [:spade, :club, :diamond, :heart].each do |suit|
+      (2..10).each do |value|
+        @@cards << Card.new(suit, value)
+      end
+      ["Jack", "Queen", "King", "Ace"].each do |facecard|
+        @@cards << Card.new(suit, facecard)
       end
     end
 
   end
 
-  def loose
-    p "You busted. You loose"
-  end
 
-  def auto_win
-    p "You got BLACKJACK"
+  def self.deal_card
+    @@cards.shuffle.pop
   end
-
-  def funny_business
-    p "You win a funny business"
-  end
-
 end
 
-class Player
-  attr_accessor :name, :card_value
+class Hand
 
   def initialize(name)
     @name = name
-    @card_value = 0
-    p "Welcome to the game #{@name}"
+    @card = []
+  end
+
+  def deal_card
+    @card = Deck.deal_card
+
+  end
+
+  def value
+
   end
 end
 
-class Dealer
-  attr_accessor :name, :card_value
-
-  def initialize(name)
-    @name = name
-    @card_value = 0
-    p "Its a pleasure to play with you"
+class Game
+  attr_accessor :cards_player
+  def initialize
+    @player = Hand.new "Thanh"
+    @dealer = Hand.new "Dealer"
+    @cards_player = []
+    @cards_dealer = []
+    @cards_dealer1 = []
+    @total = 0
+    @first_dealer_card = []
+    @total_dealer = 0
+    @count = 0
   end
+
+  def pass_card
+
+    @cards_dealer1 = @dealer.deal_card
+    @cards_dealer << @cards_dealer1
+    p "Dealer first card is #{@cards_dealer1.value}-#{@cards_dealer1.suit}"
+    p "**************************"
+
+    @cards_player << @player.deal_card
+    @cards_player << @player.deal_card
+
+    @cards_player.each do |card|
+      new_card = Card.new(card.suit, card.value)
+
+      new_card.to_s
+      new_card.face_card
+
+      @total += new_card.value
+
+    end
+    if @total == 21
+      p "YOU HAVE BLACKJACK"
+      return
+    end
+
+    p "Your total is #{@total}"
+
+    if @total == 22
+      p "You busted. You loose"
+      return
+    end
+
+    p "Do you want to hit(h) or stay(s)"
+    user = gets.chomp
+
+    p "********************************"
+
+    until user == "s"
+      card3 = @player.deal_card
+      new_card = Card.new(card3.suit, card3.value)
+
+        new_card.to_s
+        new_card.face_card
+
+        @total += new_card.value
+
+        @count += 1
+
+        if @total > 21
+          p "You busted. You loose"
+          return
+        end
+
+        p "Your total is #{@total}"
+
+        p "Do you want to hit(h) or stay(s)"
+        user = gets.chomp
+
+
+    end
+
+    funny_business if @count == 5 and @total < 21
+
+    p "Your total is #{@total}"
+
+    p "************************"
+
+    @cards_dealer << @dealer.deal_card
+    @cards_dealer.each do |card|
+        new_card = Card.new(card.suit, card.value)
+
+        new_card.to_s
+        new_card.face_card
+
+        @total_dealer += new_card.value
+      end
+
+      until @total_dealer > 16
+
+        card6 = @dealer.deal_card
+        new_card = Card.new(card6.suit, card6.value)
+        new_card.face_card
+
+        @total_dealer += new_card.value
+
+        if @total_dealer > 21
+          p "Dealer next card is #{new_card.value}-#{new_card.suit}"
+          p "Dealer total is #{@total_dealer}"
+          p "You win. Dealer loose"
+          return
+        end
+
+        p "Dealer next card is #{new_card.value}-#{new_card.suit}"
+
+      end
+      p "*******************************"
+      p "Dealer total is #{@total_dealer}"
+
+      if @total > @total_dealer
+        p "You win. Dealer Loose"
+
+      elsif @total < @total_dealer
+        p "You loose. Dealer win"
+      elsif @total == @total_dealer
+        p "You draw"
+      end
+  end
+
+  def funny_bussiness
+    p "You win a funny bussiness"
+  end
+
 
 end
 
-thanh = Player.new "Thanh"
-dealer = Dealer.new "Dealer"
-card = Cards.new
+Deck.build_cards
 
-card.add_player(dealer)
-card.add_player(thanh)
-
-#card.get_cards()
-card.get_cards(dealer)
-
-card.who_win?
+Deck.deal_card
+game = Game.new
+#thanh = Hand.new "Thanh"
+#dealer = Hand.new "Dealer"
+#thanh.deal_card
+#dealer.deal_card
+#
+game.pass_card

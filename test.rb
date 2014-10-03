@@ -1,5 +1,3 @@
-require 'pry'
-
 class Card
 
   attr_accessor :suit, :value
@@ -95,20 +93,27 @@ class Game
       new_card.to_s
       new_card.face_card
 
-      atuo_win() if new_card.value == 21
-
       @total += new_card.value
 
     end
+    if @total == 21
+      p "YOU HAVE BLACKJACK"
+      return
+    end
+
     p "Your total is #{@total}"
 
-    busted() if @total == 22
+    if @total == 22
+      p "You busted. You loose"
+      return
+    end
 
     p "Do you want to hit(h) or stay(s)"
     user = gets.chomp
 
+    p "********************************"
 
-    until user == "s" || @total > 20
+    until user == "s"
       card3 = @player.deal_card
       new_card = Card.new(card3.suit, card3.value)
 
@@ -118,8 +123,20 @@ class Game
         @total += new_card.value
 
         @count += 1
+
+        if @total > 21
+          p "You busted. You loose"
+          return
+        end
+
+        p "Your total is #{@total}"
+
+        p "Do you want to hit(h) or stay(s)"
+        user = gets.chomp
+
+
     end
-    busted() if @total > 21
+
     funny_business if @count == 5 and @total < 21
 
     p "Your total is #{@total}"
@@ -146,31 +163,25 @@ class Game
 
         if @total_dealer > 21
           p "Dealer next card is #{new_card.value}-#{new_card.suit}"
+          p "Dealer total is #{@total_dealer}"
           p "You win. Dealer loose"
-          break
+          return
         end
 
         p "Dealer next card is #{new_card.value}-#{new_card.suit}"
 
       end
-
+      p "*******************************"
       p "Dealer total is #{@total_dealer}"
 
       if @total > @total_dealer
         p "You win. Dealer Loose"
-      elsif @total = @total_dealer
-        p "You draw"
+
       elsif @total < @total_dealer
         p "You loose. Dealer win"
+      elsif @total == @total_dealer
+        p "You draw"
       end
-  end
-
-  def busted
-    p "You loose. Dealer win"
-  end
-
-  def auto_win
-    p "YOU HAVE BLACKJACK"
   end
 
   def funny_bussiness
@@ -184,7 +195,7 @@ Deck.build_cards
 
 Deck.deal_card
 game = Game.new
-thanh = Hand.new "Thanh"
+#thanh = Hand.new "Thanh"
 #dealer = Hand.new "Dealer"
 #thanh.deal_card
 #dealer.deal_card
