@@ -76,6 +76,7 @@ class Game
     @total = 0
     @first_dealer_card = []
     @total_dealer = 0
+    @count = 0
   end
 
   def pass_card
@@ -94,12 +95,18 @@ class Game
       new_card.to_s
       new_card.face_card
 
+      atuo_win() if new_card.value == 21
+
       @total += new_card.value
+
     end
     p "Your total is #{@total}"
 
+    busted() if @total == 22
+
     p "Do you want to hit(h) or stay(s)"
     user = gets.chomp
+
 
     until user == "s" || @total > 20
       card3 = @player.deal_card
@@ -109,8 +116,11 @@ class Game
         new_card.face_card
 
         @total += new_card.value
+
+        @count += 1
     end
     busted() if @total > 21
+    funny_business if @count == 5 and @total < 21
 
     p "Your total is #{@total}"
 
@@ -125,9 +135,9 @@ class Game
 
         @total_dealer += new_card.value
       end
-      p "Dealer total is #{@total_dealer}"
 
       until @total_dealer > 16
+
         card6 = @dealer.deal_card
         new_card = Card.new(card6.suit, card6.value)
         new_card.face_card
@@ -140,12 +150,33 @@ class Game
           break
         end
 
+        p "Dealer next card is #{new_card.value}-#{new_card.suit}"
+
+      end
+
+      p "Dealer total is #{@total_dealer}"
+
+      if @total > @total_dealer
+        p "You win. Dealer Loose"
+      elsif @total = @total_dealer
+        p "You draw"
+      elsif @total < @total_dealer
+        p "You loose. Dealer win"
       end
   end
 
   def busted
     p "You loose. Dealer win"
   end
+
+  def auto_win
+    p "YOU HAVE BLACKJACK"
+  end
+
+  def funny_bussiness
+    p "You win a funny bussiness"
+  end
+
 
 end
 
