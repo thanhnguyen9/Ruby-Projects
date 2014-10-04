@@ -143,6 +143,8 @@ class Game
 
     p "************************"
 
+    # Start dealing cards for dealer
+
     @cards_dealer << @dealer.deal_card
     @cards_dealer.each do |card|
         new_card = Card.new(card.suit, card.value)
@@ -174,13 +176,36 @@ class Game
       p "*******************************"
       p "Dealer total is #{@total_dealer}"
 
+      #Keep getting card if player and dealer draw
+
+      if @total == @total_dealer
+        p "****************************"
+        p "You and dealer draw so you have to hit one more card"
+        
+        card4 = @player.deal_card
+        new_card = Card.new(card4.suit, card4.value)
+
+          new_card.to_s
+          new_card.face_card
+
+          @total += new_card.value
+
+          @count += 1
+
+          if @total > 21
+            p "You busted. You loose"
+            return
+          end
+          p "Your total is #{@total}"
+
+          funny_business if @count == 5 and @total < 21
+      end
+
       if @total > @total_dealer
         p "You win. Dealer Loose"
 
       elsif @total < @total_dealer
         p "You loose. Dealer win"
-      elsif @total == @total_dealer
-        p "You draw"
       end
   end
 
