@@ -16,9 +16,7 @@ class Card
     @value = 11 if @value == "Ace"
     return @value
   end
-  def to_s
-    p "The card is #{@value}-#{@suit}"
-  end
+
 end
 
 
@@ -47,20 +45,37 @@ class Deck
 end
 
 class Hand
+    attr_accessor :cards, :total
 
   def initialize(name)
     @name = name
-    @card = []
+    @cards = []
+    @total = 0
+    @cards << Deck.deal_card
+    @cards << Deck.deal_card
+    @total = 0
   end
 
-  def deal_card
-    @card = Deck.deal_card
-
+  def show
+    @cards.each do |card|
+      new_card = Card.new(card.suit, card.value)
+      new_card.to_s
+      new_card.face_card
+      @total += new_card.value
+    end
+    p "#{@name} total is #{@total}"
   end
 
-  def value
+  def hit
+    card = Deck.deal_card
+    new_card = Card.new(card.suit, card.value)
+    new_card.to_s
+    new_card.face_card
 
+    @total += new_card.value
+    p "#{@name} total is #{@total}"
   end
+
 end
 
 class Game
@@ -68,42 +83,21 @@ class Game
   def initialize
     @player = Hand.new "Thanh"
     @dealer = Hand.new "Dealer"
-    @cards_player = []
-    @cards_dealer = []
-    @cards_dealer1 = []
-    @total = 0
-    @first_dealer_card = []
-    @total_dealer = 0
     @count = 0
   end
 
   def pass_card
+    p "Dealer first card is #{@dealer.cards.first.value}-#{@dealer.cards.first.suit}"
+    p "*********************"
 
-    @cards_dealer1 = @dealer.deal_card
-    @cards_dealer << @cards_dealer1
-    p "Dealer first card is #{@cards_dealer1.value}-#{@cards_dealer1.suit}"
-    p "**************************"
+    @player.show
 
-    @cards_player << @player.deal_card
-    @cards_player << @player.deal_card
-
-    @cards_player.each do |card|
-      new_card = Card.new(card.suit, card.value)
-
-      new_card.to_s
-      new_card.face_card
-
-      @total += new_card.value
-
-    end
-    if @total == 21
+    if @player.total == 21
       p "YOU HAVE BLACKJACK"
       return
     end
 
-    p "Your total is #{@total}"
-
-    if @total == 22
+    if @player.total == 22
       p "You busted. You loose"
       return
     end
@@ -111,16 +105,53 @@ class Game
     p "Do you want to hit(h) or stay(s)"
     user = gets.chomp
 
-    p "********************************"
+    p "*********************"
 
     until user == "s"
-      card3 = @player.deal_card
-      new_card = Card.new(card3.suit, card3.value)
+      @player.hit
+      @count += 1
 
-        new_card.to_s
-        new_card.face_card
+      if @player.total > 21
+        p "You busted. You loose"
+        return
+      end
 
-        @total += new_card.value
+      p "Your total is #{@player.total}"
+
+      p "Do you want to hit(h) or stay(s)"
+      user = gets.chomp
+
+    end
+
+    funny_business if @count == 5 and @player.total < 21
+
+    p "Your total is #{@player.total}"
+
+    p "************************"
+
+    # Start dealing cards for dealer
+    @dealer.show
+
+      until @dealer.total > 15
+        p "*********************"
+        @dealer.hit
+
+        if @dealer.total > 21
+          p "You win. Dealer loose"
+          return
+        end
+
+      end
+      p "*********************"
+
+
+      #Keep getting card if player and dealer draw
+
+      if @player.total == @dealer.total
+      p "*********************"
+        p "You and dealer draw so you have to hit one more card"
+
+        @player.hit
 
         @count += 1
 
@@ -129,82 +160,13 @@ class Game
           return
         end
 
-        p "Your total is #{@total}"
-
-        p "Do you want to hit(h) or stay(s)"
-        user = gets.chomp
-
-
-    end
-
-    funny_business if @count == 5 and @total < 21
-
-    p "Your total is #{@total}"
-
-    p "************************"
-
-    # Start dealing cards for dealer
-
-    @cards_dealer << @dealer.deal_card
-    @cards_dealer.each do |card|
-        new_card = Card.new(card.suit, card.value)
-
-        new_card.to_s
-        new_card.face_card
-
-        @total_dealer += new_card.value
+        funny_business if @count == 5 and @total < 21
       end
 
-      until @total_dealer > 16
-
-        card6 = @dealer.deal_card
-        new_card = Card.new(card6.suit, card6.value)
-        new_card.face_card
-
-        @total_dealer += new_card.value
-
-        if @total_dealer > 21
-          p "Dealer next card is #{new_card.value}-#{new_card.suit}"
-          p "Dealer total is #{@total_dealer}"
-          p "You win. Dealer loose"
-          return
-        end
-
-        p "Dealer next card is #{new_card.value}-#{new_card.suit}"
-
-      end
-      p "*******************************"
-      p "Dealer total is #{@total_dealer}"
-
-      #Keep getting card if player and dealer draw
-
-      if @total == @total_dealer
-        p "****************************"
-        p "You and dealer draw so you have to hit one more card"
-        
-        card4 = @player.deal_card
-        new_card = Card.new(card4.suit, card4.value)
-
-          new_card.to_s
-          new_card.face_card
-
-          @total += new_card.value
-
-          @count += 1
-
-          if @total > 21
-            p "You busted. You loose"
-            return
-          end
-          p "Your total is #{@total}"
-
-          funny_business if @count == 5 and @total < 21
-      end
-
-      if @total > @total_dealer
+      if @player.total > @dealer.total
         p "You win. Dealer Loose"
 
-      elsif @total < @total_dealer
+      elsif @player.total < @dealer.total
         p "You loose. Dealer win"
       end
   end
@@ -213,7 +175,6 @@ class Game
     p "You win a funny bussiness"
   end
 
-
 end
 
 Deck.build_cards
@@ -221,8 +182,9 @@ Deck.build_cards
 Deck.deal_card
 game = Game.new
 #thanh = Hand.new "Thanh"
-#dealer = Hand.new "Dealer"
-#thanh.deal_card
-#dealer.deal_card
-#
+# #dealer = Hand.new "Dealer"
+#thanh.show
+# #dealer.show
+# thanh.hit
+
 game.pass_card
