@@ -35,12 +35,12 @@ class Deck
         @@cards << Card.new(suit, facecard)
       end
     end
-
+    @@card.shuffle!
   end
 
 
   def self.deal_card
-    @@cards.shuffle.shift
+    @@cards.shift
   end
 end
 
@@ -53,10 +53,10 @@ class Hand
     @total = 0
     @cards << Deck.deal_card
     @cards << Deck.deal_card
-    @total = 0
   end
 
   def show
+      @total = 0
     @cards.each do |card|
       new_card = Card.new(card.suit, card.value)
       new_card.to_s
@@ -98,7 +98,7 @@ class Game
     end
 
     if @player.total == 22
-      p "You busted. You loose"
+      p "You busted. You lose"
       return
     end
 
@@ -112,7 +112,7 @@ class Game
       @count += 1
 
       if @player.total > 21
-        p "You busted. You loose"
+        p "You busted. You lose"
         return
       end
 
@@ -123,7 +123,7 @@ class Game
 
     end
 
-    funny_business if @count == 5 and @player.total < 21
+    funny_business if @count == 5 && @player.total < 21
 
     p "Your total is #{@player.total}"
 
@@ -137,7 +137,7 @@ class Game
         @dealer.hit
 
         if @dealer.total > 21
-          p "You win. Dealer loose"
+          p "You win. Dealer lose"
           return
         end
 
@@ -156,11 +156,11 @@ class Game
         @count += 1
 
         if @total > 21
-          p "You busted. You loose"
+          p "You busted. You lose"
           return
         end
 
-        funny_business if @count == 5 and @total < 21
+        funny_bussiness if @count == 5 and @total < 21
       end
 
       if @player.total > @dealer.total

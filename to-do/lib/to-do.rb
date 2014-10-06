@@ -39,6 +39,9 @@ class List
 		@tasks = []
 	end
 
+	def add_tasks
+		
+	end
 end
 
 class User
