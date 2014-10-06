@@ -164,10 +164,10 @@ class Game
       end
 
       if @player.total > @dealer.total
-        p "You win. Dealer Loose"
+        p "You win. Dealer Lose"
 
       elsif @player.total < @dealer.total
-        p "You loose. Dealer win"
+        p "You lose. Dealer win"
       end
   end
 
