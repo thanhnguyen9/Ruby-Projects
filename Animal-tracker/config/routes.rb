@@ -17,6 +17,13 @@ Rails.application.routes.draw do
   get '/wilds/:id/edit' => 'wilds#edit', as: :edit
 
 
+
+
+
+
+
+
+
   get '/wilds/:wild_id/sightings/new' => 'sightings#new', as: :new_sighting
 
   post '/wilds/:wild_id/sightings' => 'sightings#create'
@@ -30,4 +37,25 @@ Rails.application.routes.draw do
   delete '/wilds/:wild_id/sightings/:id' => 'sightings#destroy'
 
 
+
+
+
+
+
+
+
+
+  get '/regions' => 'regions#index'
+
+  get '/regions/new' => 'regions#new'
+
+  post '/regions' => 'regions#create'
+
+  get '/regions/:id/edit' => 'regions#edit', as: :edit_region
+
+  patch '/regions/:id' => 'regions#update'
+
+  get '/regions/:id' => 'regions#show', as: :show_region
+
+  delete '/regions/:id' => 'regions#destroy'
 end

@@ -1,0 +1,14 @@
+<h1>All of regions</h1>
+
+<% @regions.each do |region| %>
+  <ul>
+    <li><%= region.region_name %></li>
+    <%= link_to "Edit", edit_region_path(region.id) %>
+    <%= link_to "Delete", show_region_path(region.id), method: :delete, data: {confirm: "Are you sure"} %>
+
+
+  </ul>
+<%end%>
+
+<%= link_to "Create New Region", '/regions/new' %><br />
+<%= link_to "Listing of Species", '/wilds' %>
