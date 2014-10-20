@@ -1,0 +1,14 @@
+<h1>Add new Sighting for: <%= @sighting.wild.name %></h1>
+
+<form action="/wilds/<%= @sighting.wild.id %>/sightings" method="POST">
+  <label for="sighting_date">Date</lable>
+  <input id="sighting_date" name="date" type="text">
+
+  <label for="sighting_latitude">Latitude</lable>
+  <input id="sighting_latitude" name="latitude" type="text">
+
+  <label for="sighting_longitude">Longtitude</lable>
+  <input id="sighting_longitude" name="longitude" type="text">
+
+  <button>Create sighting</button>
+</form>

@@ -1,0 +1,8 @@
+<h1>Edit species name: <%= @wild.name %></h1>
+
+<form action="/wilds/<%= @wild.id %>" method="POST">
+  <input name="_method" type="hidden" value="PATCH">
+  <label for="wild_name">Name</lable>
+  <input id="wild_name" name="name" type="type">
+  <button>Update species</button>
+</form>

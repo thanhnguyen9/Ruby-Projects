@@ -1,0 +1,20 @@
+<h1>Species name: <%= @wild.name %></h1>
+
+<%= link_to "Edit", edit_path(@wild) %>
+<%= link_to "Delete", show_path(@wild), method: :delete, data: {confirm: "Are you sure?"} %><br />
+
+<h3>List of Sightings</h3>
+
+<% @wild.sightings.each do |sighting| %>
+  <ul>
+    <li><p>Date:<%= sighting.date %></p></li>
+    <li><p>Latitude: <%= sighting.latitude %></p></li>
+    <li><p>Longitude: <%= sighting.longitude %></p></li><br />
+
+    <%= link_to "Edit", edit_sighting_path(@wild, sighting) %>
+
+    <%= link_to "Delete", show_sighting_path(@wild, sighting), method: :Delete, data: {confirm: "Are you sure?"} %>
+  </ul>
+<%end%>
+
+<%= link_to "Add new sighting", new_sighting_path(@wild) %>
